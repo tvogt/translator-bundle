@@ -1,0 +1,4 @@
+translator:
+    resource: "@CalitarusTranslatorBundle/Controller"
+    type:     annotation
+

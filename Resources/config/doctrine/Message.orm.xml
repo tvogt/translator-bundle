@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping>
+	<entity name="Calitarus\TranslatorBundle\Entity\Message" table="translator.message">
+		<id name="id" type="integer">
+			<generator strategy="IDENTITY"/>
+		</id>
+		<field name="key" type="string"/>
+		<field name="long" type="boolean"/>
+
+		<many-to-one field="domain" target-entity="Domain" inversed-by="messages"/>
+		<one-to-many field="translations" target-entity="Translation" mapped-by="message" />
+
+	</entity>
+</doctrine-mapping>

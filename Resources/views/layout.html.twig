@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Calitarus Translator{% endblock %}</title>
+    <link rel="icon" sizes="16x16" href="/favicon.ico" />
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="160x160" href="/apple-touch-icon-160.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="129x129" href="apple-touch-icon.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="144x144" href="apple-touch-icon-144.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="114x114" href="apple-touch-icon-114.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="72x72" href="apple-touch-icon-72.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="57x57" href="apple-touch-icon-57.png">
+{#  non-mobile: #}
+    {% block includes %}
+        <link rel="stylesheet" href="{{ asset('bundles/bm2site/css/default.css') }}" />
+        {% block jqueryuitheme %}
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.0/themes/swanky-purse/jquery-ui.css" />
+        {% endblock %}
+        <script src="http://code.jquery.com/jquery-1.9.0.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+    {% endblock %}
+{#  mobile: 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+    <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+#}
+</head>
+<body>
+{% block logo %}
+    <div id="logo">
+        <a href="{{ path('bm2_homepage') }}"><img src="{{ asset('bundles/bm2site/images/logo-small.jpg') }}" alt="Might &amp; Fealty" /></a>
+    </div>
+{% endblock %}
+<ul class="lang-menu">
+  <li><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'en'})) }}"><img src="{{ asset('bundles/bm2site/images/flags/gb.png') }}" alt="english" title="english" /></a></li>
+  <li><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'de'})) }}"><img src="{{ asset('bundles/bm2site/images/flags/de.png') }}" alt="deutsch" title="deutsch" /></a></li>
+{#      
+  <li><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'fr'})) }}"><img src="{{ asset('bundles/bm2site/images/flags/fr.png') }}" alt="français" title="français" /></a></li>
+  <li><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'it'})) }}"><img src="{{ asset('bundles/bm2site/images/flags/it.png') }}" alt="italiano" title="italiano" /></a></li>
+#}
+</ul>            
+<div id="symfony-wrapper" data-role="page">
+    <div id="symfony-header" data-role="header">
+        <ul class="navbar">
+            <li>
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <a href="{{ path('fos_user_profile_show') }}">
+                {#  TODO: mobile: just "Profile" or something - too long otherwise #}
+                {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}
+                </a>
+            {% else %}
+                <a href="{{ path('fos_user_registration_register') }}">{{ 'menu.register'|trans|title }}</a>
+            {% endif %}
+
+            </li><li>
+
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
+            {% else %}
+                <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+            {% endif %}
+            </li>
+        </ul>
+        <div style="clear: both"></div>
+
+        {% block navbar %}
+        <div id="symfony-navigation" data-role="navbar">
+            <ul class="navbar">
+                <li><a href="{{ path('calitarus_translator_default_index') }}">Summary</a></li>
+                <li><a href="{{ path('calitarus_translator_admin_domains') }}">Domains</a></li>
+                <li><a href="{{ path('calitarus_translator_admin_languages') }}">Languages</a></li>
+            </ul>
+        </div>
+        {% endblock %}
+    </div>
+    <div style="clear: both"></div>
+
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+    <div class="flash-message" data-role="header" data-theme="e">
+        {{ flashMessage|trans }}
+    </div>
+    {% endfor %}
+
+    <div class="symfony-content" data-role="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <div id="symfony-footer" data-role="footer">
+        <div>&copy;2013 Calitarus GmbH</div>
+        <div><a href="{{ path('calitarus_translator_default_contact') }}">contact</a></div>
+{# TODO: footer with impressum, social sharing buttons (from http://www.heise.de/extras/socialshareprivacy/) etc. #}
+    </div>
+
+
+</div>
+<script language="javascript" type="text/javascript">
+{% block javascript %}
+{% endblock %}
+$(document).ready(function() {
+{% block jquery %}
+{% endblock %}
+});
+</script>
+</body>
+</html>

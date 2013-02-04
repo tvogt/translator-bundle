@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping>
+	<entity name="Calitarus\TranslatorBundle\Entity\Vote" table="translator.vote">
+		<id name="id" type="integer">
+			<generator strategy="IDENTITY"/>
+		</id>
+		<field name="type" type="smallint"/>
+
+		<many-to-one field="for" target-entity="Calitarus\TranslatorBundle\Entity\Suggestion" inversed-by="votes"/>
+		<many-to-one field="by" target-entity="BM2\SiteBundle\Entity\User"/>
+
+	</entity>
+</doctrine-mapping>

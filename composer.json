@@ -1,0 +1,32 @@
+{
+    "name": "tvogt/translator-bundle",
+    "type": "symfony-bundle",
+    "description": "Provides a web-based interface for translating i18n strings.",
+    "keywords": ["symfony", "translation", "i18n"],
+    "homepage": "https://github.com/tvogt/translator-bundle",
+    "license": "GPL3",
+    "authors": [
+        {
+            "name": "Tom Vogt",
+            "email": "tom@lemuria.org",
+            "homepage": "http://lemuria.org"
+        },
+        {
+            "name": "Calitarus GmbH",
+            "homepage": "http://calitarus.de"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "symfony/framework-bundle": "2.1.*",
+        "symfony/twig-bundle": "2.1.*"
+    },
+    "suggest": {
+        "doctrine/doctrine-bundle": "dev-master",
+        "doctrine/mongodb-odm-bundle": "dev-master"
+    },
+    "autoload": {
+        "psr-0": { "Calitarus\\TranslatorBundle": "" }
+    },
+    "target-dir": "Calitarus/TranslatorBundle"
+}

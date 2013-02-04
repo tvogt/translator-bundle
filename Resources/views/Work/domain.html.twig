@@ -1,0 +1,66 @@
+{% extends "CalitarusTranslatorBundle::layout.html.twig" %}
+
+{% block content %}
+<h2>Translation Strings for domain "{{ domain.name }}" in {{ language.name }}</h2>
+
+<form class="wide" action="{{ path('calitarus_translator_work_domain', {'language_id':language.id, 'domain_id':domain.id}) }}" method="post" {{ form_enctype(form) }}>
+	{{ form_errors(form) }}
+	{{ form_widget(form._token) }}
+	<table>
+		<thead></thead>
+		<tbody>
+	{% for message in messages %}
+		<tr>
+			<td valign="top">{{ message.key }}</td>
+			<td valign="top">{{ form_label(form.strings[message.id]['translation_id']) }}</td>
+			<td>
+				{{ form_widget(form.strings[message.id]['translation_id']) }}
+				{{ form_widget(form.strings[message.id]['changed']) }}
+				{{ form_widget(form.strings[message.id]['content']) }}
+				<div id="sug_{{ message.id }}" data-loaded="false"></div>
+			</td>
+		</dd>
+	{% endfor %}
+	</tbody></table>
+	<button type="submit">submit</button>
+</form>
+{% endblock %}
+
+{% block jquery %}
+$(".edit").change(function(){
+	var mid = $(this).attr('data-mid');
+	$("[id^=translations_strings_"+mid+"_changed]").prop("checked", true);
+});
+
+$(".edit").click(function(){
+	var tid = $(this).attr('data-tid');
+	var mid = $(this).attr('data-mid');
+	if (tid>0) {
+		var loaded = $("#sug_"+mid).attr('data-loaded');
+		if (loaded=="false") {
+			$.get('{{ path('calitarus_translator_work_suggestions') }}', {'translation_id': tid}, function(data){
+				$("#sug_"+mid).html(data);
+				$("#sug_"+mid).attr('data-loaded', "true");
+				bindbuttons();
+			});
+		}
+	}
+});
+
+function bindbuttons() {
+	$(".vote").click(function(){
+		$.post('{{ path('calitarus_translator_work_vote') }}', {
+			'type': $(this).attr('data-type'),
+			'for': $(this).attr('data-id'),
+		}, function(data){
+		})	
+	});	
+
+	$(".accept").click(function(){
+		$.post('{{ path('calitarus_translator_work_accept') }}', {
+			'for': $(this).attr('data-id'),
+		}, function(data){
+		})	
+	});	
+}
+{% endblock %}

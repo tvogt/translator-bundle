@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping>
+	<entity name="Calitarus\TranslatorBundle\Entity\Language" table="translator.language">
+		<id name="id" type="integer">
+			<generator strategy="IDENTITY"/>
+		</id>
+		<field name="code" type="string" length="2"/>
+		<field name="name" type="string"/>
+
+		<one-to-many field="translations" target-entity="Translation" mapped-by="language" />
+
+	</entity>
+</doctrine-mapping>

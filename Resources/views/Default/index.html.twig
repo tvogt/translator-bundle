@@ -1,0 +1,33 @@
+{% extends "CalitarusTranslatorBundle::layout.html.twig" %}
+
+{% block content %}
+<h1>Summary</h1>
+{{ total }} total language keys.
+
+<h2>Progress per Language</h2>
+<table>
+<thead></thead>
+<tbody>
+{% for done in progress %}
+	<tr>
+		<td>{{ done.code }}</td><td>{{ done.name }}</td>
+		<td class="progress_column" style="width:100%"><div class="progressbar" value="{{done.number/total}}"><span class="progress_value_dummy">{{ done.number }}</span></div></td>
+		<td><a href="{{ path('calitarus_translator_work_translate', {'language_id':done.id}) }}">translate</a></td>
+	</tr>
+{% endfor %}
+</tbody></table>
+
+<h2>Start a New Translation</h2>
+<form class="wide" action="{{ path('calitarus_translator_default_index') }}" method="post" {{ form_enctype(form) }}>
+	{{ form_widget(form) }}
+	<button type="submit">start</button>
+</form>
+{% endblock %}
+
+{% block jquery %}
+$(".progressbar").each(function(){
+	var percent = 100*parseFloat($(this).attr("value"));
+ 	$(this).progressbar({value: percent });	
+});
+$(".progress_value_dummy").addClass("progress_value").removeClass("progress_value_dummy");
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "CalitarusTranslatorBundle::layout.html.twig" %}
+
+{% block content %}
+<h1>Domain "{{ domain.name }}"</h1>
+<h2>Create New Message</h2>
+<form class="wide" action="{{ path('calitarus_translator_admin_messages', {'domain_id':domain.id}) }}" method="post" {{ form_enctype(form) }}>
+	{{ form_widget(form) }}
+	<button type="submit">create</button>
+</form>
+
+<h2>Messages</h2>
+<dl>
+{% for message in messages %}
+	<dt>{{ message.key }}</dt>
+	<dd>{{ message.content }}</dd>
+{% endfor %}
+</dl>
+
+{% endblock %}

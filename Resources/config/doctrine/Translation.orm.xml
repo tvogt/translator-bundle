@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping>
+	<entity name="Calitarus\TranslatorBundle\Entity\Translation" table="translator.translation">
+		<id name="id" type="integer">
+			<generator strategy="IDENTITY"/>
+		</id>
+		<field name="content" type="text"/>
+
+		<many-to-one field="language" target-entity="Language" inversed-by="translations"/>
+		<many-to-one field="message" target-entity="Message" inversed-by="translations"/>
+		<one-to-many field="suggestions" target-entity="Suggestion" mapped-by="translation" />
+		<many-to-one field="by" target-entity="BM2\SiteBundle\Entity\User"/>
+
+	</entity>
+</doctrine-mapping>
