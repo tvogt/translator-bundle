@@ -97,6 +97,7 @@ class AdminController extends Controller {
 				$message = new Entity\Message();
 				$message->setKey($data['key']);
 				$message->setLong($data['long']);
+				$message->setRemarks($data['remarks']);
 				$message->setDomain($domain);
 				$em->persist($message);
 				$translation = new Entity\Translation();
@@ -108,7 +109,7 @@ class AdminController extends Controller {
 			}
 		}
 
-		$query = $em->createQuery('SELECT m.key, t.content FROM Calitarus\TranslatorBundle\Entity\Message m JOIN m.translations t WHERE t.language = :lang');
+		$query = $em->createQuery('SELECT m.key, m.remarks, t.content FROM Calitarus\TranslatorBundle\Entity\Message m JOIN m.translations t WHERE t.language = :lang');
 		$query->setParameter('lang', $default_language);
 		$messages = $query->getResult();
 

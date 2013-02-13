@@ -30,6 +30,7 @@ class NewMessageType extends AbstractType {
 		));
 */
 		$builder->add('translation', 'textarea', array('label'=>'english text', 'required'=>true));
+		$builder->add('remarks', 'textarea', array('label'=>'optional remarks', 'required'=>false));
 	}
 
 	public function getName() {

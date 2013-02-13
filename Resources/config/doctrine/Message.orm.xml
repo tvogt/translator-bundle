@@ -6,6 +6,7 @@
 		</id>
 		<field name="key" type="string"/>
 		<field name="long" type="boolean"/>
+		<field name="remarks" type="text" nullable="true"/>
 
 		<many-to-one field="domain" target-entity="Domain" inversed-by="messages"/>
 		<one-to-many field="translations" target-entity="Translation" mapped-by="message" />
