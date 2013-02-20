@@ -1,0 +1,21 @@
+summary:      summary
+totalkeys:    %total% total language keys
+progress:     progress per language
+language:     language|languages
+
+newtranslation:   Start a New Translation
+newlanguage:      Create New Language
+
+link:
+ translate:   translate
+
+button:
+ start:   start
+ create:  create
+
+form:
+ language:    language
+ code:        language code
+ name:        name
+
+ 

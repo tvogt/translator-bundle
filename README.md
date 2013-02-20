@@ -45,3 +45,4 @@ Let me know if you fork and implement any of these:
 
 ## Changes
 * initial commit
+* added remarks and voting

@@ -53,10 +53,42 @@ class AdminController extends Controller {
 	}
 
 	/**
-     * @Route("/languages")
-     * @Template
+     * @Route("/newtranslation")
+     * @Template("CalitarusTranslatorBundle:Admin:languages.html.twig")
      */
-	public function languagesAction(Request $request) {
+	public function newtranslationAction(Request $request) {
+		$em = $this->getDoctrine()->getManager();
+
+		$form = $this->createForm(new Form\NewTranslationType());
+		if ($request->isMethod('POST')) {
+			$form->bind($request);
+			if ($form->isValid()) {
+				$data = $form->getData();
+				$selfmessage = $em->getRepository('Calitarus\TranslatorBundle\Entity\Message')->findOneByKey('__self');
+				$translation = new Entity\Translation();
+				$translation->setContent($data['language']->getName());
+				$translation->setLanguage($data['language']);
+				$translation->setMessage($selfmessage);
+				$em->persist($translation);
+				$em->flush();
+			}
+		}
+
+		$form_lang = $this->createForm(new Form\LanguageType());
+		$languages = $em->getRepository('Calitarus\TranslatorBundle\Entity\Language')->findAll();
+
+		return array(
+			'languages' => $languages,
+			'form_translation' => $form->createView(),
+			'form_language' => $form_lang->createView()
+		);
+	}
+
+	/**
+     * @Route("/newlanguage")
+     * @Template("CalitarusTranslatorBundle:Admin:languages.html.twig")
+     */
+	public function newlanguageAction(Request $request) {
 		$em = $this->getDoctrine()->getManager();
 
 		$form = $this->createForm(new Form\LanguageType());
@@ -72,11 +104,31 @@ class AdminController extends Controller {
 			}
 		}
 
+		$form_trans = $this->createForm(new Form\NewTranslationType());
 		$languages = $em->getRepository('Calitarus\TranslatorBundle\Entity\Language')->findAll();
 
 		return array(
 			'languages' => $languages,
-			'form' => $form->createView()
+			'form_translation' => $form_trans->createView(),
+			'form_language' => $form->createView()
+		);
+	}
+
+	/**
+     * @Route("/languages")
+     * @Template
+     */
+	public function languagesAction(Request $request) {
+		$em = $this->getDoctrine()->getManager();
+
+		$form_trans = $this->createForm(new Form\NewTranslationType());
+		$form_lang = $this->createForm(new Form\LanguageType());
+		$languages = $em->getRepository('Calitarus\TranslatorBundle\Entity\Language')->findAll();
+
+		return array(
+			'languages' => $languages,
+			'form_translation' => $form_trans->createView(),
+			'form_language' => $form_lang->createView()
 		);
 	}
 

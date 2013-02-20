@@ -9,8 +9,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 class LanguageType extends AbstractType {
 
 	public function buildForm(FormBuilderInterface $builder, array $options) {
-		$builder->add('code', 'text', array('label'=>'language code', 'required'=>true, 'attr' => array('size'=>2, 'maxlength'=>2)));
-		$builder->add('name', 'text', array('label'=>'name', 'required'=>true, 'attr' => array('size'=>20, 'maxlength'=>40)));
+		$builder->add('code', 'text', array('label'=>'form.code', 'required'=>true, 'attr' => array('size'=>2, 'maxlength'=>2)));
+		$builder->add('name', 'text', array('label'=>'form.name', 'required'=>true, 'attr' => array('size'=>20, 'maxlength'=>40)));
 	}
 	
 	public function getName() {

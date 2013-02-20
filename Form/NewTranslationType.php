@@ -11,7 +11,7 @@ class NewTranslationType extends AbstractType {
 
 	public function buildForm(FormBuilderInterface $builder, array $options) {
 		$builder->add('language', 'entity', array(
-			'label'=>'language',
+			'label'=>'form.language',
 			'required'=>true,
 			'class'=>'CalitarusTranslatorBundle:Language', 'property'=>'name', 
 			'query_builder'=>function(EntityRepository $er) {
