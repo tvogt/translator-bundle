@@ -1,7 +1,7 @@
 {% extends "CalitarusTranslatorBundle::layout.html.twig" %}
 
 {% block content %}
-<h2>Translation progress for {{ language.name }}</h2>
+<h2>{{ 'progressof'|trans({'%language%': language.name})|title }}</h2>
 
 <table>
 <thead></thead>
@@ -11,9 +11,9 @@
 		<td>{{ domain.name }}</td>
 		{% if domain.total > 0 %}
 			<td class="progress_column" style="width:100%"><div class="progressbar" value="{{domain.translated/domain.total}}"><span class="progress_value_dummy">{{ domain.translated }} / {{ domain.total }}</span></div></td>
-			<td><a href="{{ path('calitarus_translator_work_domain', {'language_id':language.id, 'domain_id':domain.id}) }}">translate</a></td>
+			<td><a href="{{ path('calitarus_translator_work_domain', {'language_id':language.id, 'domain_id':domain.id}) }}">{{ 'link.translate'|trans }}</a></td>
 		{% else %}
-			<td>nothing to translate</td>
+			<td>{{ 'nothing'|trans }}</td>
 			<td></td>
 		{% endif %}
 	</tr>

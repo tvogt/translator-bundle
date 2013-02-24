@@ -64,12 +64,14 @@ class ImportCommand extends ContainerAwareCommand {
                 $message->setLong(false);
             }
             $message->setDomain($domain);
+            $message->setLastchange(new \DateTime("now"));
             $em->persist($message);
 
             $translation = new Entity\Translation();
             $translation->setContent($content);
             $translation->setLanguage($language);
             $translation->setMessage($message);
+            $translation->setLastchange(new \DateTime("now"));
             $em->persist($translation);
 
             $count++;

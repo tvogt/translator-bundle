@@ -5,6 +5,7 @@
 			<generator strategy="IDENTITY"/>
 		</id>
 		<field name="content" type="text"/>
+		<field name="lastchange" type="datetime"/>
 
 		<many-to-one field="language" target-entity="Language" inversed-by="translations"/>
 		<many-to-one field="message" target-entity="Message" inversed-by="translations"/>

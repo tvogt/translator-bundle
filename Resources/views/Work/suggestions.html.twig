@@ -1,7 +1,7 @@
 {% if suggestions|length > 0 %}
 	<table>
 		<thead>
-			<tr><th colspan=4>Current Suggestions</th></tr>
+			<tr><th colspan=4>{{ 'suggestions'|trans }}</th></tr>
 		</thead>
 		<tbody>
 		{% for suggestion in suggestions %}
@@ -11,7 +11,7 @@
 				<td><button type="button" class="vote" data-type="up" data-id="{{ suggestion.id }}">+</button></td>
 				<td><button type="button" class="vote" data-type="down" data-id="{{ suggestion.id }}">-</button></td>
 				{% if is_granted("ROLE_ADMIN") %}
-					<td><button type="button" class="accept" data-id="{{ suggestion.id }}">accept</button></td>
+					<td><button type="button" class="accept" data-id="{{ suggestion.id }}">{{ 'button.accept'|trans }}</button></td>
 				{% endif %}
 			</tr>
 		{% endfor %}

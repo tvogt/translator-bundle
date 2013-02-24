@@ -1,10 +1,25 @@
 summary:      summary
 totalkeys:    %total% total language keys
 progress:     progress per language
+
 language:     language|languages
+domain:       domain|domains
+message:      message|messages
+
+key:        key
+content:    content
+remarks:    optional remarks
+source:     source language
 
 newtranslation:   Start a New Translation
 newlanguage:      Create New Language
+newdomain:        Create New Domain
+newmessage:       Create New Message
+nothing:          nothing to translate
+
+strings:      Translation Strings for domain "%domain%" in %language%
+suggestions:  Current Suggestions
+progressof:   Translation progress for %language%
 
 link:
  translate:   translate
@@ -12,10 +27,11 @@ link:
 button:
  start:   start
  create:  create
+ submit:  submit
+ accept:  accept
 
 form:
  language:    language
  code:        language code
  name:        name
 
- 
