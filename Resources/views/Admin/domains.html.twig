@@ -1,18 +1,18 @@
 {% extends "CalitarusTranslatorBundle::layout.html.twig" %}
 
 {% block content %}
-<h2>{{ 'domain'|transchoice(10)|title }}</h2>
+<h2>{{ 'domain'|transchoice(10, {}, "translatorbundle")|title }}</h2>
 <ul>
 {% for domain in domains %}
 	<li><a href="{{ path('calitarus_translator_admin_messages', {'domain_id':domain.id}) }}">{{ domain.name }}</a></li>
 {% endfor %}
 </ul>
 
-<h2>{{ 'newdomain'|trans|title }}</h2>
+<h2>{{ 'newdomain'|trans({}, "translatorbundle")|title }}</h2>
 {{ form_errors(form) }}
 <form class="wide" action="{{ path('calitarus_translator_admin_domains') }}" method="post" {{ form_enctype(form) }}>
 	{{ form_widget(form) }}
-	<button type="submit">{{ 'button.create'|trans }}</button>
+	<button type="submit">{{ 'button.create'|trans({}, "translatorbundle") }}</button>
 </form>
 
 {% endblock %}

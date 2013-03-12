@@ -2,6 +2,7 @@
 
 This Symfony 2 bundle provides a simple web-based interface for collaborative translation of i18n strings.
 
+[![Build Status](https://travis-ci.org/tvogt/translator-bundle.png?branch=master)](https://travis-ci.org/tvogt/translator-bundle)
 
 
 ## Features

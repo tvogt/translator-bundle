@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-<h2>{{ 'strings'|trans({'%domain%': domain.name, '%language%':language.name})|title }}</h2>
+<h2>{{ 'strings'|trans({'%domain%': domain.name, '%language%':language.name}, "translatorbundle")|title }}</h2>
 
 <form action="{{ path('calitarus_translator_work_domain', {'language_id':language.id, 'domain_id':domain.id}) }}" method="post" {{ form_enctype(form) }}>
 	{{ form_errors(form) }}
@@ -16,8 +16,8 @@
 	<table class="translator resizable">
 		<thead><tr>
 			<th><button type="button" class="info" value="0">i</button></th>
-			<th>{{ 'key'|trans }}</th>
-			<th>{{ 'source'|trans }}</th>
+			<th>{{ 'key'|trans({}, "translatorbundle") }}</th>
+			<th>{{ 'source'|trans({}, "translatorbundle") }}</th>
 			<th>{{ language.name }}</th>
 		</tr></thead>
 		<tbody>
@@ -35,7 +35,7 @@
 		</dd>
 	{% endfor %}
 	</tbody></table>
-	<button type="submit" name="submit">{{ 'button.submit'|trans }}</button>
+	<button type="submit" name="submit">{{ 'button.submit'|trans({}, "translatorbundle") }}</button>
 </form>
 {% endblock %}
 

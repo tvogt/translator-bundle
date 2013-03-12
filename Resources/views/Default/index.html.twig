@@ -1,10 +1,10 @@
 {% extends "CalitarusTranslatorBundle::layout.html.twig" %}
 
 {% block content %}
-<h1>{{ 'summary'|trans|title }}</h1>
-<p>{{ 'totalkeys'|trans({'%total%':total}) }}</p>
+<h1>{{ 'summary'|trans({}, "translatorbundle")|title }}</h1>
+<p>{{ 'totalkeys'|trans({'%total%':total}, "translatorbundle") }}</p>
 
-<h2>{{ 'progress'|trans|title }}</h2>
+<h2>{{ 'progress'|trans({}, "translatorbundle")|title }}</h2>
 <table>
 <thead></thead>
 <tbody>
@@ -12,7 +12,7 @@
 	<tr>
 		<td>{{ done.code }}</td><td>{{ done.name }}</td>
 		<td class="progress_column" style="width:100%"><div class="progressbar" value="{{done.number/total}}"><span class="progress_value_dummy">{{ done.number }}</span></div></td>
-		<td><a href="{{ path('calitarus_translator_work_translate', {'language_id':done.id}) }}">{{ 'link.translate'|trans }}</a></td>
+		<td><a href="{{ path('calitarus_translator_work_translate', {'language_id':done.id}) }}">{{ 'link.translate'|trans({}, "translatorbundle") }}</a></td>
 	</tr>
 {% endfor %}
 </tbody></table>

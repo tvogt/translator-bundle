@@ -1,21 +1,21 @@
 {% extends "CalitarusTranslatorBundle::layout.html.twig" %}
 
 {% block content %}
-<h2>{{ 'newtranslation'|trans|title }}</h2>
+<h2>{{ 'newtranslation'|trans({}, "translatorbundle")|title }}</h2>
 <form class="wide" action="{{ path('calitarus_translator_admin_newtranslation') }}" method="post" {{ form_enctype(form_translation) }}>
 	{{ form_widget(form_translation) }}
 	<button type="submit">{{ 'button.start'|trans }}</button>
 </form>
 
-<h2>{{ 'newlanguage'|trans|title }}</h2>
+<h2>{{ 'newlanguage'|trans({}, "translatorbundle")|title }}</h2>
 <form class="wide" action="{{ path('calitarus_translator_admin_newlanguage') }}" method="post" {{ form_enctype(form_language) }}>
 	{{ form_widget(form_language) }}
-	<button type="submit">{{ 'button.create'|trans }}</button>
+	<button type="submit">{{ 'button.create'|trans({}, "translatorbundle") }}</button>
 </form>
 
 <hr />
 
-<h2>{{ 'language'|transchoice(10)|title }}</h2>
+<h2>{{ 'language'|transchoice(10, {}, "translatorbundle")|title }}</h2>
 <dl>
 {% for language in languages %}
 	<dt>{{ language.code }}</dt>
