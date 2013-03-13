@@ -1,0 +1,3 @@
+calitarus_translator:
+    resource: "@CalitarusTranslatorBundle/Resources/config/routing.yml"
+    prefix:   /translator
