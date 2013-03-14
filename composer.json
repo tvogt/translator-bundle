@@ -21,7 +21,8 @@
         "symfony/framework-bundle": "2.1.*",
         "symfony/twig-bundle": "2.1.*",
         "symfony/finder": "2.2.*@dev",
-        "symfony/class-loader": "2.2.*@dev"        
+        "symfony/class-loader": "2.2.*@dev",
+        "symfony/security": "2.1.*@dev"
     },
     "suggest": {
         "doctrine/doctrine-bundle": "dev-master",
