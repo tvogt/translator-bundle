@@ -85,11 +85,13 @@ class SetupCommand extends ContainerAwareCommand {
         $message->setKey('__self');
         $message->setLong(false);
         $message->setDomain($default_domain);
+        $message->setLastChange(new \DateTime("now"));
         $em->persist($message);
         $translation = new Entity\Translation();
         $translation->setContent('english');
         $translation->setLanguage($default_language);
         $translation->setMessage($message);
+        $translation->setLastChange(new \DateTime("now"));
         $em->persist($translation);
 
         $em->flush();
