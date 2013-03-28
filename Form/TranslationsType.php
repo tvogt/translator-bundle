@@ -23,9 +23,17 @@ class TranslationsType extends AbstractType {
 		$builder->add('strings', 'collection');
 		foreach ($this->messages as $message) {
 			$id = $message->getId();
+
 			$default = $this->defaults->filter(function($default) use ($message) {
                 return $default->getMessage() == $message;
             })->first();
+			if ($default) {
+				$label = $default->getContent();
+			} else {
+				$label = "(missing)";
+			}
+
+
 			$translation = $this->translations->filter(function($translation) use ($message) {
                 return $translation->getMessage() == $message;
             })->first();
@@ -39,7 +47,7 @@ class TranslationsType extends AbstractType {
 			}
 			$builder->get('strings')->add((string)$id, 'collection');
 			$set = $builder->get('strings')->get((string)$id);
-			$set->add("translation_id", 'hidden', array('data'=>$tid, 'label'=>$default->getContent()));
+			$set->add("translation_id", 'hidden', array('data'=>$tid, 'label'=>$label));
 			$set->add("changed", 'checkbox', array('required'=>false, 'attr'=>array('class'=>'hidden')));
 			if ($message->getLong()) {
 				$set->add("content",'textarea', array(

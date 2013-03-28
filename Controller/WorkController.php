@@ -65,17 +65,22 @@ class WorkController extends Controller {
      */
 	public function domainAction($language_id, $domain_id, Request $request) {
 		$em = $this->getDoctrine()->getManager();
-		$language = $em->getRepository('Calitarus\TranslatorBundle\Entity\Language')->find($language_id);
 		$domain = $em->getRepository('Calitarus\TranslatorBundle\Entity\Domain')->find($domain_id);
-		$default_language = $em->getRepository('Calitarus\TranslatorBundle\Entity\Language')->findOneByCode('en');
 
-		$messages = new ArrayCollection($em->getRepository('Calitarus\TranslatorBundle\Entity\Message')->findByDomain($domain_id));
-		$query = $em->createQuery('SELECT t, m FROM Calitarus\TranslatorBundle\Entity\Translation t JOIN t.message m WHERE t.language = :language AND m.domain = :domain');
-		$query->setParameters(array('domain'=>$domain, 'language'=>$default_language));
-		$defaults = new ArrayCollection($query->getResult());
+		$language = $em->getRepository('Calitarus\TranslatorBundle\Entity\Language')->find($language_id);
 		$query = $em->createQuery('SELECT t, m FROM Calitarus\TranslatorBundle\Entity\Translation t JOIN t.message m WHERE t.language = :language AND m.domain = :domain');
 		$query->setParameters(array('domain'=>$domain, 'language'=>$language));
 		$translations = new ArrayCollection($query->getResult());
+
+		if ($language_id=='en') {
+			$defaults = $translations;
+		} else {
+			$default_language = $em->getRepository('Calitarus\TranslatorBundle\Entity\Language')->findOneByCode('en');
+			$messages = new ArrayCollection($em->getRepository('Calitarus\TranslatorBundle\Entity\Message')->findByDomain($domain_id));
+			$query = $em->createQuery('SELECT t, m FROM Calitarus\TranslatorBundle\Entity\Translation t JOIN t.message m WHERE t.language = :language AND m.domain = :domain');
+			$query->setParameters(array('domain'=>$domain, 'language'=>$default_language));
+			$defaults = new ArrayCollection($query->getResult());			
+		}
 
 		$form = $this->createForm(new Form\TranslationsType($messages, $translations, $defaults));
 		if ($request->isMethod('POST')) {

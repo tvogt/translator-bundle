@@ -52,20 +52,24 @@ class ImportCommand extends ContainerAwareCommand {
             exit(1);
         }
 
-        $count = 0;
+        $count = 0; $newmsgs = 0;
 
         $strings = $this->parse($yaml);
         foreach ($strings as $key => $content) {
-            $message = new Entity\Message();
-            $message->setKey($key);
-            if (strlen($content)>120) {
-                $message->setLong(true);
-            } else {
-                $message->setLong(false);
+            $message = $em->getRepository('Calitarus\TranslatorBundle\Entity\Message')->findOneByKey($key);
+            if (!$message) {
+                $newmsgs++;
+                $message = new Entity\Message();
+                $message->setKey($key);
+                if (strlen($content)>120) {
+                    $message->setLong(true);
+                } else {
+                    $message->setLong(false);
+                }
+                $message->setDomain($domain);
+                $message->setLastchange(new \DateTime("now"));
+                $em->persist($message);                
             }
-            $message->setDomain($domain);
-            $message->setLastchange(new \DateTime("now"));
-            $em->persist($message);
 
             $translation = new Entity\Translation();
             $translation->setContent($content);
@@ -78,7 +82,7 @@ class ImportCommand extends ContainerAwareCommand {
         }
 
         $em->flush();
-        $output->writeln("$count records imported");
+        $output->writeln("$count records imported, $newmsgs new messages");
     }
 
     private function parse($data, $path=array()) {
